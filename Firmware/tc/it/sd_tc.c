@@ -132,7 +132,7 @@ STATIC void sd_tc_02(void)
     u8 test_status,data=0x01;
     u16 count=0;
     tc_printf_banner("sd_tc_02 test ");
-    LED_R_ON;
+//    LED_R_ON;
     for(sector_addr=0x00;sector_addr<=0x1000;sector_addr++)
     {
         fill_buffer(buffer_block_tx,buffer_words_size,data);
@@ -175,7 +175,7 @@ STATIC void sd_tc_02(void)
         count++;
        
     }
-    LED_R_OFF;
+//    LED_R_OFF;
     tc_printf_tail("sd_tc_02 test ");
 }
 
@@ -187,7 +187,7 @@ STATIC void sd_tc_03(void)
     u8 test_status,data=0xFF;
     u16 print_count=1;
     tc_printf_banner("sd_tc_03 test ");
-    LED_R_ON;
+//    LED_R_ON;
     for(sector_addr=0x1500;sector_addr<=0x35000;sector_addr=sector_addr+10)
     {
         fill_buffer(test_buff,TEMP_BUFF_SIZE,data);
@@ -222,7 +222,7 @@ STATIC void sd_tc_03(void)
         count++;
         
     }
-    LED_R_OFF;
+//    LED_R_OFF;
     tc_printf_tail("sd_tc_03 test ");
 }
 
@@ -233,7 +233,7 @@ STATIC void sd_tc_04(void)
     u8 test_status,data=0x00;
     u32 addr,count,print_count=1;
     tc_printf_banner("sd_tc_04 test ");
-    LED_R_ON;
+//    LED_R_ON;
     for(count=0;count<0x2000;count++)
     {        
         srand(count);
@@ -255,10 +255,10 @@ STATIC void sd_tc_04(void)
             print_count++;
         }
     }
-    LED_R_OFF;
+//    LED_R_OFF;
 
     print_count=1;
-    LED_R_ON;
+//    LED_R_ON;
     for(count=0;count<0x2000;count++)
     {
         srand(count);
@@ -282,7 +282,7 @@ STATIC void sd_tc_04(void)
             print_count++;
         }    
     }
-    LED_R_OFF;
+//    LED_R_OFF;
     
     tc_printf_tail("sd_tc_04 test ");
 }
@@ -296,7 +296,7 @@ STATIC void sd_tc_05(void)
     u8 test_status,data;
     u32 addr,count,print_count=1;
     tc_printf_banner("sd_tc_05 test ");
-    LED_R_ON;
+//    LED_R_ON;
     for(count=0x0001;count<0x5000;count++)
     {        
         srand(count);
@@ -320,10 +320,10 @@ STATIC void sd_tc_05(void)
             print_count++;
         }
     }
-    LED_R_OFF;
+//    LED_R_OFF;
 
     print_count=1;
-    LED_R_ON;
+//    LED_R_ON;
     for(count=0x0001;count<0x5000;count++)
     {
         srand(count);
@@ -350,7 +350,7 @@ STATIC void sd_tc_05(void)
             print_count++;
         }    
     }
-    LED_R_OFF;
+//    LED_R_OFF;
     
     tc_printf_tail("sd_tc_05 test ");
 }
@@ -547,7 +547,7 @@ STATIC void sd_tc_09(void)
     u8 test_status,data=0x01;
     u16 count=0;
     tc_printf_banner("sd_tc_09 test ");
-    LED_R_ON;
+//    LED_R_ON;
     fill_buffer(buffer_block_tx,buffer_words_size,data);
     for(sector_addr=0x00;sector_addr<=0x4000;sector_addr++)
     {
@@ -582,7 +582,7 @@ STATIC void sd_tc_09(void)
        
     }
 
-    LED_R_OFF;
+//    LED_R_OFF;
     tc_printf_tail("sd_tc_09 test ");
 }
 
@@ -594,7 +594,7 @@ STATIC void sd_tc_10(void)
     u8 test_status,data=0x01;
     u16 count=0;
     tc_printf_banner("sd_tc_10 test ");
-    LED_R_ON;
+//    LED_R_ON;
     fill_buffer(buffer_block_tx,buffer_words_size,data);
 
     for(sector_addr=0x00;sector_addr<=0x100000;sector_addr=sector_addr+100)
@@ -631,7 +631,7 @@ STATIC void sd_tc_10(void)
        
     }
 
-    LED_R_OFF;
+//    LED_R_OFF;
     tc_printf_tail("sd_tc_10 test ");
 }
 
@@ -733,7 +733,7 @@ STATIC void sd_tc_13(void)
     u8 test_status,data=0x01;
     u16 print_count=1;
     tc_printf_banner("sd_tc_13 test ");
-    LED_R_ON;
+//    LED_R_ON;
     //写数据
     MSG(SYS_INFO "start write data\r\n");
     for(sector_addr=0x10000;sector_addr<=0x50000;sector_addr=sector_addr+2)
@@ -785,7 +785,7 @@ STATIC void sd_tc_13(void)
         
     }
     MSG(SYS_INFO "end read data\r\n");
-    LED_R_OFF;
+//    LED_R_OFF;
     tc_printf_tail("sd_tc_13 test ");
 }
 //随机地址多块写
@@ -796,7 +796,7 @@ STATIC void sd_tc_14(void)
     u8 test_status,lba_val,i,loop_cnt=0;
     u16 print_count=1,buff_count=0;
     tc_printf_banner("sd_tc_14 test ");
-    LED_R_ON;
+//    LED_R_ON;
     while(loop_cnt<250)
     {
         //产生5k个随机地址和数据
@@ -866,7 +866,7 @@ STATIC void sd_tc_14(void)
         }
         loop_cnt++;
     }
-    LED_R_OFF;
+//    LED_R_OFF;
     tc_printf_tail("sd_tc_14 test ");
 
 }

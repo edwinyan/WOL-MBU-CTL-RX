@@ -11,21 +11,30 @@ typedef struct{
 
 
 STATIC gpio_config_t gpio_config_array[GPIO_SRC_NUM] = {
-    {GPIOC, GPIO_Pin_0},    //shuttle adj 2
-    {GPIOC, GPIO_Pin_1},	//shuttle adj 1
-    {GPIOC, GPIO_Pin_2},	//shuttle
-    {GPIOA, GPIO_Pin_1}, 	//photo
-    {GPIOA, GPIO_Pin_2}, 	//playback
-    {GPIOA, GPIO_Pin_4}, 	//mode set 1
-    {GPIOA, GPIO_Pin_5}, 	//mode set 2
-    {GPIOB, GPIO_Pin_15}, 	//video
+    {PWRKEY1_GPIO, PWRKEY1_PIN},
+    {RTH1_GPIO, RTH1_PIN}, 
+    {EMG1_GPIO, EMG1_PIN}, 
+    {MODE1_GPIO, MODE1_PIN}, 
+    
+    {PWRKEY2_GPIO, PWRKEY2_PIN},
+    {RTH2_GPIO, RTH2_PIN}, 
+    {EMG2_GPIO, EMG2_PIN}, 
+    {MODE2_GPIO, MODE2_PIN}, 
+    
+    {PWRKEY3_GPIO, PWRKEY3_PIN},
+    {RTH3_GPIO, RTH3_PIN}, 
+    {EMG3_GPIO, EMG3_PIN}, 
+    {MODE3_GPIO, MODE3_PIN}, 
+    
+    {PWRKEY4_GPIO, PWRKEY4_PIN},
+	{RTH4_GPIO, RTH4_PIN}, 
+    {EMG4_GPIO, EMG4_PIN}, 
+    {MODE4_GPIO, MODE4_PIN}, 
 
-	{GPIOA, GPIO_Pin_8}, 	//power
-	{GPIOB, GPIO_Pin_5}, 	//return reserve2
-	{GPIOB, GPIO_Pin_6}, 	//return toggle
-	{GPIOB, GPIO_Pin_7}, 	//return reserve1
-	{GPIOB, GPIO_Pin_8}, 	//return 
-
+	{PWRCTL1_GPIO, PWRCTL1_PIN}, 
+	{PWRCTL2_GPIO, PWRCTL2_PIN}, 
+	{PWRCTL3_GPIO, PWRCTL3_PIN}, 
+	{PWRCTL4_GPIO, PWRCTL4_PIN}, 
 };
 
 /*----------------------------------------------------------------------------*/
@@ -47,43 +56,7 @@ void gpio_drv_init(void)
     }
 
 }
-#if 0
-//config rx led status output
-void tx_gpio_init(void)
-{
-	GPIO_InitTypeDef  gpio_init;
-	u8 counter;
 
-	gpio_init.GPIO_Mode  = GPIO_Mode_OUT;
-    gpio_init.GPIO_OType = GPIO_OType_PP;
-    gpio_init.GPIO_PuPd  = GPIO_PuPd_UP;
-    gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
-
-	 for(counter = 0; counter < 3; counter++)
-    {
-        gpio_init.GPIO_Pin = gpio_led_array[counter].pin;
-        GPIO_Init(gpio_led_array[counter].port, &gpio_init);
-    }
-}
-
-//config tx led status input
-void rx_gpio_init(void)
-{
-	GPIO_InitTypeDef  gpio_init;
-	u8 counter;
-
-	gpio_init.GPIO_Mode  = GPIO_Mode_IN;
-    gpio_init.GPIO_OType = GPIO_OType_PP;
-    gpio_init.GPIO_PuPd  = GPIO_PuPd_DOWN;
-    gpio_init.GPIO_Speed = GPIO_Speed_50MHz;
-
-	 for(counter = 0; counter < 3; counter++)
-    {
-        gpio_init.GPIO_Pin = gpio_led_array[counter].pin;
-        GPIO_Init(gpio_led_array[counter].port, &gpio_init);
-    }
-}
-#endif
 
 void gpio_value_set(u8 src)
 {

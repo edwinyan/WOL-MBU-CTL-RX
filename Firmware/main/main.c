@@ -12,6 +12,9 @@ OS_MUTEX	FIFO_MUTEX;
 
 //static FIFO_T stFiFo;
 
+
+u8 uart_test[20]={0xaa,0xaa,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x55,0x55};
+
 /*----------------------------------------------------------------------------*/
 //macro and variables
 #define  APP_CFG_TASK_START_STK_SIZE                    256u
@@ -35,7 +38,7 @@ STATIC void app_rfm_tx_task(void *p_arg)
 
 	(void)p_arg;
 	
-	MSG("Creating Application Tasks: %d\r\n",__FPU_USED);
+	//MSG("Creating Application Tasks: %d\r\n",__FPU_USED);
 
 	while (DEF_TRUE) 
     {   
@@ -106,10 +109,28 @@ STATIC void app_task_start(void *p_arg)
     while (DEF_TRUE) 
     {   
         //tc_run_all();
-        MSG("------===------loop-------===------\r\n");
-       // LED_G_ON;
+        MSG("------------loop-------------\r\n");
+//		uart_drv_gcs1_send(uart_test,20);
+//		uart_drv_gcs2_send(uart_test,20);
+//		uart_drv_comm_send(uart_test,20);
+//		uart_drv_gcs3_send(uart_test,20);
+// 		uart_drv_gcs4_send(uart_test,20);
+
+ //       GPIO_SetBits(GPIOB,GPIO_Pin_1);
+//		LED1_ON;
+//		LED2_ON;
+//		LED3_ON;
+//		LED4_ON;
+//		LED5_ON;
+		LED6_ON;
 		OSTimeDlyHMSM(0, 0, 0, 500, OS_OPT_TIME_HMSM_STRICT, &err);
-		//LED_G_OFF;g
+//		LED1_OFF;
+//		LED2_OFF;
+//		LED3_OFF;
+//		LED4_OFF;
+//		LED5_OFF;
+		LED6_OFF;
+//		GPIO_ResetBits(GPIOB,GPIO_Pin_1);
 		OSTimeDlyHMSM(0, 0, 0, 500, OS_OPT_TIME_HMSM_STRICT, &err);
     }
 }

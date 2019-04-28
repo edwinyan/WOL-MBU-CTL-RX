@@ -117,7 +117,7 @@
 *********************************************************************************************************
 */
 
-#define  SERIAL_CFG_MAX_NBR_IF                          4u              /* See Note #1.                                         */
+#define  SERIAL_CFG_MAX_NBR_IF                          6u              /* See Note #1.                                         */
 
 #define  SERIAL_CFG_RD_BUF_EN                           DEF_ENABLED     /* See Note #2.                                         */
 

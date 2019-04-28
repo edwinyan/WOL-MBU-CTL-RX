@@ -6,8 +6,13 @@
 typedef enum{
     UART_SRC_START = 0,
     UART_SRC_DBG = UART_SRC_START,
-    UART_SRC_GPRS,
-    UART_SRC_MAVLINK,
+    UART_SRC_GCS1,
+    UART_SRC_GCS2,
+    UART_SRC_COMM,
+    UART_SRC_GCS3,
+    UART_SRC_GCS4,
+    UART_SRC_BACKUP1,
+	UART_SRC_BACKUP2,
 
     UART_SRC_NUM
 }uart_src_enum;
@@ -21,6 +26,16 @@ typedef struct {
 void uart_drv_init(void);
 void uart_drv_dbg_msg(u8 *msg);
 u32 uart_drv_dbg_recv(u8 *buf, u32 len);
+void uart_drv_gcs1_send(u8 *buf, u32 len);
+u32 uart_drv_gcs1_recv(u8 *buf, u32 len);
+void uart_drv_gcs2_send(u8 *buf, u32 len);
+u32 uart_drv_gcs2_recv(u8 *buf, u32 len);
+void uart_drv_comm_send(u8 *buf, u32 len);
+u32 uart_drv_comm_recv(u8 *buf, u32 len);
+void uart_drv_gcs3_send(u8 *buf, u32 len);
+u32 uart_drv_gcs3_recv(u8 *buf, u32 len);
+void uart_drv_gcs4_send(u8 *buf, u32 len);
+u32 uart_drv_gcs4_recv(u8 *buf, u32 len);
 
 void Fifo_Init(pFIFO_T stFiFo);
 bool Fifo_Write(pFIFO_T stFiFo, u8 dat);
