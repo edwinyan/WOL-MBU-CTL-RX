@@ -1,14 +1,14 @@
 #include "common.h"
 #include "tc_common.h"
-#include "./led/led_tc.h"
-#include "./uart/uart_tc.h"
-#include "./sd/sd_tc.h"
+#include "led_tc.h"
+#include "uart_tc.h"
+#include "sd_tc.h"
 //#include "./spi/spi_tc.h"
-#include "./button/button_tc.h"
-#include "./w25qxx/w25qxx_tc.h"
-#include "./flash/flash_tc.h"
-#include "./adc/adc_tc.h"
-#include "./pwm/pwm_tc.h"
+#include "button_tc.h"
+#include "w25qxx_tc.h"
+#include "flash_tc.h"
+#include "adc_tc.h"
+#include "pwm_tc.h"
 
 void tc_printf_banner(char *desc)
 {

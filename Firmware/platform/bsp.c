@@ -123,7 +123,7 @@ void  BSP_Init (void)
 void BSP_Peripheral_Init(void)
 {
 //    led_drv_init();
-//    uart_drv_init();
+    uart_drv_init();
 //	button_drv_init();
 //	buzzer_drv_init();
 //	Adc_Init();
