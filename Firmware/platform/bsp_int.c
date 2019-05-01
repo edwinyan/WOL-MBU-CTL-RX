@@ -429,6 +429,8 @@ static  void  BSP_IntHandler (CPU_DATA  int_id)
 
     if (int_id < BSP_INT_SRC_NBR) {
         isr = BSP_IntVectTbl[int_id];
+//				if(int_id == BSP_INT_ID_CAN1_RX0)
+//					while(1);
         if (isr != (CPU_FNCT_VOID)0) {
             isr();
         }

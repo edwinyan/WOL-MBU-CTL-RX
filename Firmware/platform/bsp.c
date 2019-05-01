@@ -23,6 +23,7 @@
 #include "adc_drv.h"
 #include "pwm_drv.h"
 #include "gpio_drv.h"
+#include "can_drv.h"
 /*----------------------------------------------------------------------------*/
 //macros
 #define  BSP_BIT_RCC_PLLCFGR_PLLM               8u
@@ -116,6 +117,8 @@ void  BSP_Init (void)
 	BSP_PeriphEn(BSP_PERIPH_ID_TIM3);
 	BSP_PeriphEn(BSP_PERIPH_ID_TIM4);
 	BSP_PeriphEn(BSP_PERIPH_ID_TIM5);
+
+	BSP_PeriphEn(BSP_PERIPH_ID_CAN1);
 	
 	
 }
@@ -130,7 +133,7 @@ void BSP_Peripheral_Init(void)
 	gpio_drv_init(); //config gpio for output
 //	TIM3_PWM_Init(4095,7);  //TIM3 for adc2,3,4,5
 //	TIM5_PWM_Init(4095,7); //pwm frequency=1M/409 = 2.439KHz
-		
+	CAN1_Init(); //can bus init	
 }
 
 /*
