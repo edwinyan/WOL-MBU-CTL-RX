@@ -19,7 +19,7 @@
 //    其他,初始化失败; 
 extern FIFO_T canFiFo;
 u32 enter_count=0;	
-u8 buf[8]={0};
+//u8 buf[8]={0};
 
 #if CAN1_RX0_INT_ENABLE	//使能RX0中断
 //中断服务函数			    

@@ -3,90 +3,109 @@
 
 typedef enum{
     GPIO_SRC_START = 0,
-	GPIO_SRC_PWRKEY1 =GPIO_SRC_START,
-	GPIO_SRC_RTH1,
-	GPIO_SRC_EMG1,
-	GPIO_SRC_MODE1,
-	GPIO_SRC_PWRKEY2,
-	GPIO_SRC_RTH2,
-	GPIO_SRC_EMG2,
-	GPIO_SRC_VIDEO,
-	GPIO_SRC_MODE2,
-	GPIO_SRC_PWRKEY3,
-	GPIO_SRC_RTH3,
-	GPIO_SRC_EMG3,
-	GPIO_SRC_MODE3,
-	GPIO_SRC_PWRKEY4,
-	GPIO_SRC_RTH4,
-	GPIO_SRC_EMG4,
-	GPIO_SRC_MODE4,
-
-	GPIO_SRC_PWRCTL1,
+	GPIO_SRC_PWRCTL1=GPIO_SRC_START,
 	GPIO_SRC_PWRCTL2,
 	GPIO_SRC_PWRCTL3,
 	GPIO_SRC_PWRCTL4,
+	
+	GPIO_SRC_PWRKEY_L1,		//mavic air
+	GPIO_SRC_PWRKEY_R1,
+	GPIO_SRC_RTH1,
+	GPIO_SRC_EMG1,
+	GPIO_SRC_MODE1,
+	
+	GPIO_SRC_PWRKEY2,		//mavic 2 
+	GPIO_SRC_RTH2,
+	GPIO_SRC_EMG2,
+	GPIO_SRC_MODES_2,
+	GPIO_SRC_MODEP_2,
+	GPIO_SRC_MODET_2,
+	
+	GPIO_SRC_PWRKEY3,		//mavic 2
+	GPIO_SRC_RTH3,
+	GPIO_SRC_EMG3,
+	GPIO_SRC_MODES_3,
+	GPIO_SRC_MODEP_3,
+	GPIO_SRC_MODET_3,
+	
+	GPIO_SRC_PWRKEY4,		//m210
+	GPIO_SRC_RTH4,
+	GPIO_SRC_EMG4,
+	GPIO_SRC_MODEP_4,
+	GPIO_SRC_MODEA_4,
 	
 	GPIO_SRC_NUM
 
 }gpio_src_enum;
 
-#define PWRKEY1_PIN		GPIO_Pin_12
-#define RTH1_PIN		GPIO_Pin_13
-#define EMG1_PIN		GPIO_Pin_14
-#define MODE1_PIN		GPIO_Pin_15
+#define PWRKEY_L1_PIN		GPIO_Pin_12
+#define PWRKEY_R1_PIN		GPIO_Pin_1
+#define RTH1_PIN			GPIO_Pin_13
+#define EMG1_PIN			GPIO_Pin_14
+#define MODE1_PIN			GPIO_Pin_15
 
-#define PWRKEY2_PIN		GPIO_Pin_8
-#define RTH2_PIN		GPIO_Pin_9
-#define EMG2_PIN		GPIO_Pin_8
-#define MODE2_PIN		GPIO_Pin_11
+#define PWRKEY2_PIN			GPIO_Pin_8
+#define RTH2_PIN			GPIO_Pin_9
+#define EMG2_PIN			GPIO_Pin_8
+#define MODES2_PIN			GPIO_Pin_11
+#define MODEP2_PIN			GPIO_Pin_12
+#define MODET2_PIN			GPIO_Pin_15
 
-#define PWRKEY3_PIN		GPIO_Pin_12
-#define RTH3_PIN		GPIO_Pin_15
-#define EMG3_PIN		GPIO_Pin_3
-#define MODE3_PIN		GPIO_Pin_4
+#define PWRKEY3_PIN			GPIO_Pin_3
+#define RTH3_PIN			GPIO_Pin_4
+#define EMG3_PIN			GPIO_Pin_5
+#define MODES3_PIN			GPIO_Pin_0
+#define MODEP3_PIN			GPIO_Pin_6
+#define MODET3_PIN			GPIO_Pin_7
 
-#define PWRKEY4_PIN		GPIO_Pin_5
-#define RTH4_PIN		GPIO_Pin_6
-#define EMG4_PIN		GPIO_Pin_7
-#define MODE4_PIN		GPIO_Pin_0
+#define PWRKEY4_PIN			GPIO_Pin_3
+#define RTH4_PIN			GPIO_Pin_4
+#define EMG4_PIN			GPIO_Pin_5
+#define MODEP4_PIN			GPIO_Pin_6
+#define MODEA4_PIN			GPIO_Pin_7
 
-#define PWRKEY1_GPIO	GPIOB
-#define RTH1_GPIO		GPIOB
-#define EMG1_GPIO		GPIOB
-#define MODE1_GPIO		GPIOB
 
-#define PWRKEY2_GPIO	GPIOC
-#define RTH2_GPIO		GPIOC
-#define EMG2_GPIO		GPIOA
-#define MODE2_GPIO		GPIOA
+#define PWRKEY_L1_GPIO		GPIOB
+#define PWRKEY_R1_GPIO		GPIOB
+#define RTH1_GPIO			GPIOB
+#define EMG1_GPIO			GPIOB
+#define MODE1_GPIO			GPIOB
 
-#define PWRKEY3_GPIO	GPIOA
-#define RTH3_GPIO		GPIOA
-#define EMG3_GPIO		GPIOB
-#define MODE3_GPIO		GPIOB
+#define PWRKEY2_GPIO		GPIOC
+#define RTH2_GPIO			GPIOC
+#define EMG2_GPIO			GPIOA
+#define MODES2_GPIO			GPIOA
+#define MODEP2_GPIO			GPIOA
+#define MODET2_GPIO			GPIOA
 
-#define PWRKEY4_GPIO	GPIOB
-#define RTH4_GPIO		GPIOB
-#define EMG4_GPIO		GPIOB
-#define MODE4_GPIO		GPIOC
+#define PWRKEY3_GPIO		GPIOC
+#define RTH3_GPIO			GPIOC
+#define EMG3_GPIO			GPIOC
+#define MODES3_GPIO			GPIOB
+#define MODEP3_GPIO			GPIOA
+#define MODET3_GPIO			GPIOA
 
-#define PWRCTL1_PIN		GPIO_Pin_4
-#define PWRCTL2_PIN		GPIO_Pin_15
-#define PWRCTL3_PIN		GPIO_Pin_13
-#define PWRCTL4_PIN		GPIO_Pin_14
+#define PWRKEY4_GPIO		GPIOB
+#define RTH4_GPIO			GPIOB
+#define EMG4_GPIO			GPIOB
+#define MODEP4_GPIO			GPIOB
+#define MODEA4_GPIO			GPIOB
 
-#define PWRCTL1_GPIO	GPIOA
-#define PWRCTL2_GPIO	GPIOC
-#define PWRCTL3_GPIO	GPIOC
-#define PWRCTL4_GPIO	GPIOC
+#define PWRCTL1_PIN			GPIO_Pin_4
+#define PWRCTL2_PIN			GPIO_Pin_15
+#define PWRCTL3_PIN			GPIO_Pin_13
+#define PWRCTL4_PIN			GPIO_Pin_14
+
+#define PWRCTL1_GPIO		GPIOA
+#define PWRCTL2_GPIO		GPIOC
+#define PWRCTL3_GPIO		GPIOC
+#define PWRCTL4_GPIO		GPIOC
 
 
 
 void gpio_drv_init(void);
 void gpio_value_set(u8 src);
 void gpio_value_reset(u8 src);
-//void rx_gpio_init(void);
-//void tx_gpio_init(void);
 
 
 

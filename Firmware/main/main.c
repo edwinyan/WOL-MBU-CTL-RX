@@ -6,6 +6,7 @@
 #include "uart_drv.h"
 #include "can_drv.h"
 #include "gpio_drv.h"
+#include "protocol.h"
 
 OS_MUTEX	TX_MUTEX;		//uart tx mutex
 OS_MUTEX	RX_MUTEX;		//uart rx mutex
@@ -16,9 +17,14 @@ OS_MUTEX	FIFO_MUTEX;
 
 FIFO_T canFiFo;
 extern u32 enter_count;
-extern u8 buf[8];
+extern u8 packet[12];
 //u8 uart_test[20]={0xaa,0xaa,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x55,0x55};
-u8 can_test[8] = {0,1,2,3,4,5,6,7};
+//u8 can_test[8] = {0,1,2,3,4,5,6,7};
+extern u8 mode_changed[4];
+extern u8 changed_enable[4];
+
+extern control_flag_t control[4];
+extern u8 set_power[4];
 /*----------------------------------------------------------------------------*/
 //macro and variables
 #define  APP_CFG_TASK_START_STK_SIZE                    256u
@@ -45,44 +51,20 @@ STATIC void app_comm_task(void *p_arg)
 {
 	OS_ERR      err;
 	(void)p_arg;
-	u8 len=0,i;
-	//u8 buf[8];
-	u8 data;
+//	u8 len=0,i;
+	//u8 pack[16];
+	//u8 data;
+	packet_t frame;
 	//MSG("Creating Application Tasks: %d\r\n",__FPU_USED);
 	
 	
 	while (DEF_TRUE) 
     {   
-		//if(CAN1_Send_Msg(can_test,8))
-//			MSG("can send message failed\r\n");
-//		len = CAN1_Receive_Msg(buf);
-//		if(len)
-//		{
-//			for(i=0;i<len;i++){
-//				MSG("%d,",buf[i]);
-//			}
-//			len=0;
-//		}
-//		MSG("%d\n",enter_count);
-//		if(1 == uart_drv_comm_recv(&data,1))
-//		{
-//			//Fifo_Write(&canFiFo,data);
-//			MSG("0x%x,",data);
-//		}
-		len = Fifo_DataLen(&canFiFo);
-		if(len){
-			while(len--)
-			{
-				if(Fifo_Read(&canFiFo,&data))
-				MSG("%d,",data);
-			}
-			MSG("\n");
+		if(data_received()) //有正确的数据帧
+		{
+			data_unpack(&frame);
+			do_actions(frame);
 		}
-//	if(enter_count){
-//		for(i=0;i<8;i++)
-//			MSG("%d",buf[i]);
-//		}
-		//MSG("can send message failed\r\n");
 		OSTimeDlyHMSM(0, 0, 0, 10, OS_OPT_TIME_HMSM_STRICT, &err);
     }
 }
@@ -90,13 +72,60 @@ STATIC void app_comm_task(void *p_arg)
 STATIC void app_uart_task(void *p_arg)
 {
 	OS_ERR      err;
+	u8 i;
+	
 	(void)p_arg;
 	
 	//MSG("Creating Application Tasks: %d\r\n",__FPU_USED);
 	
 	while (DEF_TRUE) 
     {   
-		OSTimeDlyHMSM(0, 0, 0, 10, OS_OPT_TIME_HMSM_STRICT, &err);
+		
+		for(i=0;i<4;i++)
+ 		{
+			//if((mode_changed[i] == 1 )&& (changed_enable[i] == 0))
+			if(control[i].mode_change == 1 && control[i].changed_enable == 0)
+			{
+				MSG("change mode start--%d\n",i);
+				change_mode(i);
+				//changed_enable[i]=1;
+				control[i].changed_enable = 1;
+				MSG("change mode complete--%d\n",i);
+			}
+			if(control[i].crash_stop == 1)
+			{
+				MSG("crash stop start -- %d\n",i);
+				do_crash_stop(i);
+				control[i].crash_stop = 0;
+				MSG("crash stop stop -- %d\n",i);
+			}
+			if(control[i].return_enable == 1)
+			{
+				MSG("return home start-- %d\n",i);
+				do_return_home(i);
+				control[i].return_enable =0;
+				MSG("return home stop-- %d\n",i);
+			}
+			if(set_power[i] == 1)
+			{
+				MSG("pwr key%d pressed start\n",i);
+				set_power[i] = 0;
+				gpio_value_set(i);
+				//set_power[index] = 1;
+				BSP_OS_TimeDly(1000);
+				set_controller(i);
+				MSG("pwr key%d pressed complete\n",i);		
+			}else if(set_power[i] == 2){
+				set_power[i] = 0;
+				MSG("pwr key%d released start\n",i);
+				set_controller(i);
+				BSP_OS_TimeDly(1000);
+				gpio_value_reset(i);			
+				MSG("pwr key%d released complete\n",i);
+				
+			}
+		}
+		OSTimeDlyHMSM(0, 0, 0, 50, OS_OPT_TIME_HMSM_STRICT, &err);
     }
 }
 
@@ -145,8 +174,7 @@ STATIC void app_task_start(void *p_arg)
     OS_ERR      err;
 	//u32 i =0;
 	
-	
-//	u8 i;
+
 
 
    (void)p_arg;
@@ -190,31 +218,11 @@ STATIC void app_task_start(void *p_arg)
     {   
         //tc_run_all();
  //       MSG("------------loop-------------\r\n");
-//		uart_drv_gcs1_send(uart_test,20);
-//		uart_drv_gcs2_send(uart_test,20);
-//		uart_drv_comm_send(uart_test,20);
-//		uart_drv_gcs3_send(uart_test,20);
-// 		uart_drv_gcs4_send(uart_test,20);
 
- //       GPIO_SetBits(GPIOB,GPIO_Pin_1);
-//		LED1_ON;
-//		LED2_ON;
-//		LED3_ON;
-//		LED4_ON;
-//		LED5_ON;
-		LED6_ON;
-		OSTimeDlyHMSM(0, 0, 0, 100, OS_OPT_TIME_HMSM_STRICT, &err);
-//		LED1_OFF;
-//		LED2_OFF;
-//		LED3_OFF;
-//		LED4_OFF;
-//		LED5_OFF;
-		LED6_OFF;
-
-//		MSG("\n");
-
-//		GPIO_ResetBits(GPIOB,GPIO_Pin_1);
-		OSTimeDlyHMSM(0, 0, 0, 100, OS_OPT_TIME_HMSM_STRICT, &err);
+		LED1_ON;
+		OSTimeDlyHMSM(0, 0, 0, 500, OS_OPT_TIME_HMSM_STRICT, &err);
+		LED1_OFF;
+		OSTimeDlyHMSM(0, 0, 0, 500, OS_OPT_TIME_HMSM_STRICT, &err);
     }
 }
 

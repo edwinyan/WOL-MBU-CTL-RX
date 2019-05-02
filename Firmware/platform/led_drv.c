@@ -12,11 +12,7 @@ typedef struct{
 
 STATIC led_config_t led_config_array[LED_SRC_NUM] = {
     {LED1_GPIO, LED1_PIN},
-    {LED2_GPIO, LED2_PIN},
-    {LED3_GPIO, LED3_PIN},
-    {LED4_GPIO, LED4_PIN},    
-	{LED5_GPIO, LED5_PIN},
-	{LED6_GPIO, LED6_PIN},
+
 };
 
 /*----------------------------------------------------------------------------*/

@@ -8,50 +8,115 @@
 #define TAIL1		0x55
 #define TAIL2		0x55
 
+#define ROCKER_MIDDLE	0
+#define ROCKER_UP		1
+#define ROCKER_DOWN		2
+
+#define	ADC_CHANNEL_JS_THROTTLE	0		
+#define ADC_CHANNEL_JS_ROLL		1		
+#define	ADC_CHANNEL_JS_PITCH	2		
+#define ADC_CHANNEL_JS_YAW		3		
+
+#define ADC_CHANNEL_PTZ_V		0		//云台竖轴
+#define ADC_CHANNEL_PTZ_H		1		//云台横轴
+
+#define ON		1
+#define OFF 	0
+//飞行器编号
 typedef enum{
-	TYPE_SRC_START=0,
-	TYPE_SRC_DRONE=TYPE_SRC_START,
-	TYPE_SRC_JPYSTICK,
+	INDEX_SRC_DRONE1=1,
+	INDEX_SRC_DRONE2,
+	INDEX_SRC_DRONE3,
+	INDEX_SRC_DRONE4,
+	INDEX_SRC_PWRKEY1,
+	INDEX_SRC_PWRKEY2,
+	INDEX_SRC_PWRKEY3,
+	INDEX_SRC_PWRKEY4
+}index_src_enum;
 
-	TYPE_SRC_NUM
-}type_src_enum;
+//控制类型
+typedef enum{
+	CONTROL_SRC_CLOSE=0,
+	CONTROL_SRC_OPEN,
+	CONTROL_SRC_DRONE,
+	CONTROL_SRC_PTZ,
+	CONTROL_SRC_LAMP,
+	CONTROL_SRC_WHISTLE1,
+	CONTROL_SRC_WHISTLE2,
+	CONTROL_SRC_SHOUTING,
 
+	CONTROL_SRC_NUM
+}control_src_enum;
+
+//控制事件
+typedef enum{
+	EVENT_SRC_CLOSE=0,
+	EVENT_SRC_OPEN,
+	EVENT_SRC_JOYSTICK,
+	EVENT_SRC_CRASHSTOP,
+	EVENT_SRC_RTNHOME,
+	EVENT_SRC_PTZRESET,
+	EVENT_SRC_ZOOMIN,
+	EVENT_SRC_ZOOMOUT,
+	EVENT_SRC_ZOOMRESET,
+
+	EVENT_SRC_NUM
+}event_src_enum;
+
+typedef struct{
+	u8 packet_enable;	//飞行事件发送使能
+	u8 power_enable;	//电源事件发送使能
+	u8 power_trig;	
+	u8 event_index;
+	u8 repeat;
+	u8 index_src;		//控制编号
+	u8 control_type;	//控制类型
+	u8 control_event;	//控制事件
+	u8 adc_value[8];	//摇杆数据
+}packet_t;
 
 typedef enum{
-	PACKET_SRC_START=0,
-	PACKET_SRC_HEAD1=PACKET_SRC_START,
-	PACKET_SRC_HEAD2,
-	PACKET_SRC_DRONE_ENABLE,
-	PACKET_SRC_PTZ_ENABLE,
-	PACKET_SRC_THROTTLE,
-	PACKET_SRC_THROTTLE_VALUE,
-	PACKET_SRC_ROLL,
-	PACKET_SRC_ROLL_VALUE,
-	PACKET_SRC_PITCH,
-	PACKET_SRC_PITCH_VALUE,
-	PACKET_SRC_YAW,
-	PACKET_SRC_YAW_VALUE,
-	PACKET_SRC_HORIZONTAL,
-	PACKET_SRC_HORIZONTAL_VALUE,
-	PACKET_SRC_VERTICAL,
-	PACKET_SRC_VERTICAL_VALUE,
-	PACKET_SRC_CHECKSUM,
-	PACKET_SRC_TAIL1,
-	PACKET_SRC_TAIL2,
+	PACKET_START=0,
+	INDEX_SRC=PACKET_START,
+	CONTROL_SRC,
+	EVENT_SRC,
+	VALUE_ADC1,
+	VALUE_ADC2,
+	VALUE_ADC3,
+	VALUE_ADC4,
+	VALUE_ADC5,
+	VALUE_ADC6,
+	VALUE_ADC7,
+	VALUE_ADC8,
 
-	PACKET_SRC_NUM
-}packet_src_enum;
+	DATA_NUM
+}packet_enum;
 
-//protocol for receive message from TX board by CAN bus
 typedef enum{
-	PWR_SRC_START=0,
-	PWR_SRC_KEY1 =PWR_SRC_START,
-	PWR_SRC_KEY2,
-	PWR_SRC_KEY3,
-	PWR_SRC_KEY4,
+	TYPE_DRONE=0,
+	TYPE_PTZ,
+	TYPE_PTZRESET,
+	TYPE_ZOOMIN,
+	TYPE_ZOOMOUT,
+	TYPE_ZOOMRESET,
 
-	PWR_SRC_NUM
-}pwr_src_enum;
+	TYPE_NUM
+}type_enum;
 
+typedef struct{
+	u8 mode_change;
+	u8 changed_enable;
+	u8 return_enable;
+	u8 crash_stop;
+//	u8 set_power;
+}control_flag_t;
+
+bool data_received(void);
+void data_unpack(packet_t *data);
+void do_actions(packet_t pack);
+void change_mode(u8 index);
+void do_crash_stop(u8 index);
+void do_return_home(u8 index);
+void set_controller(u8 index);
 
 #endif
