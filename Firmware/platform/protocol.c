@@ -92,7 +92,7 @@ void pack_channels(u8 index,packet_t pack)
 			tx_buf[2] = TYPE_PTZ;
 			for(i=0;i<4;i++)
 			{
-				tx_buf[3+i] = pack.adc_value[i];
+				tx_buf[7+i] = pack.adc_value[i];
 			}
 		}else if(index == TYPE_PTZRESET){
 			tx_buf[2] =TYPE_PTZRESET;
@@ -218,7 +218,7 @@ void set_controller(u8 index)
 			gpio_value_reset(GPIO_SRC_PWRKEY_L1);
 			gpio_value_set(GPIO_SRC_PWRKEY_R1);
 			
-			BSP_OS_TimeDly(1000);
+			BSP_OS_TimeDly(300);
 
 			gpio_value_set(GPIO_SRC_PWRKEY_L1);
 			gpio_value_reset(GPIO_SRC_PWRKEY_R1);
@@ -232,7 +232,7 @@ void set_controller(u8 index)
 			BSP_OS_TimeDly(500);
 			gpio_value_set(GPIO_SRC_PWRKEY2);
 			
-			BSP_OS_TimeDly(1000);
+			BSP_OS_TimeDly(300);
 
 			gpio_value_reset(GPIO_SRC_PWRKEY2);
 			BSP_OS_TimeDly(2000);
@@ -244,7 +244,7 @@ void set_controller(u8 index)
 			BSP_OS_TimeDly(500);
 			gpio_value_set(GPIO_SRC_PWRKEY3);
 			
-			BSP_OS_TimeDly(1000);
+			BSP_OS_TimeDly(300);
 
 			gpio_value_reset(GPIO_SRC_PWRKEY3);
 			BSP_OS_TimeDly(2000);
@@ -256,7 +256,7 @@ void set_controller(u8 index)
 			BSP_OS_TimeDly(500);
 			gpio_value_reset(GPIO_SRC_PWRKEY4);
 			
-			BSP_OS_TimeDly(1000);
+			BSP_OS_TimeDly(300);
 
 			gpio_value_set(GPIO_SRC_PWRKEY4);
 			BSP_OS_TimeDly(2000);
