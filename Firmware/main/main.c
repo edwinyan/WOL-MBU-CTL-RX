@@ -87,7 +87,7 @@ STATIC void app_uart_task(void *p_arg)
 			if(control[i].mode_change == 1 && control[i].changed_enable == 0)
 			{
 				MSG("change mode start--%d\n",i);
-				change_mode(i);
+				//change_mode(i);
 				//changed_enable[i]=1;
 				control[i].changed_enable = 1;
 				MSG("change mode complete--%d\n",i);

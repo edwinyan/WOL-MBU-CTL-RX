@@ -229,25 +229,26 @@ void set_controller(u8 index)
 		case 1:		//mavic 2
 			//short press(500ms)+long press(2000ms)
 			gpio_value_reset(GPIO_SRC_PWRKEY2);
-			BSP_OS_TimeDly(500);
+			BSP_OS_TimeDly(200);
 			gpio_value_set(GPIO_SRC_PWRKEY2);
 			
 			BSP_OS_TimeDly(300);
 
 			gpio_value_reset(GPIO_SRC_PWRKEY2);
-			BSP_OS_TimeDly(2000);
+			BSP_OS_TimeDly(4000);
 			gpio_value_set(GPIO_SRC_PWRKEY2);
+
 			break;
 		case 2:		//mavic 2
 			//short press(500ms)+long press(2000ms)
 			gpio_value_reset(GPIO_SRC_PWRKEY3);
-			BSP_OS_TimeDly(500);
+			BSP_OS_TimeDly(200);
 			gpio_value_set(GPIO_SRC_PWRKEY3);
 			
 			BSP_OS_TimeDly(300);
 
 			gpio_value_reset(GPIO_SRC_PWRKEY3);
-			BSP_OS_TimeDly(2000);
+			BSP_OS_TimeDly(4000);
 			gpio_value_set(GPIO_SRC_PWRKEY3);
 			break;
 		case 3:		//m210
